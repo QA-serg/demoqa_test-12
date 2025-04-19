@@ -8,7 +8,10 @@ repositories {
 
 dependencies {
     testImplementation(
-            "com.codeborne:selenide:7.8.1"
+            "org.junit.jupiter:junit-jupiter-api:5.10.0",
+            "org.junit.jupiter:junit-jupiter-engine:5.10.0",
+            "com.codeborne:selenide:7.8.1",
+            "org.slf4j:slf4j-simple:2.0.7"
     )
 }
 
