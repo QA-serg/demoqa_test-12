@@ -15,9 +15,8 @@ public class SearchTest {
     static void beforeAll() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.timeout = 10000;
-        Configuration.headless = false;
-        Configuration.holdBrowserOpen = true;
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.browser = "chrome";
     }
 
     @Test
@@ -29,7 +28,7 @@ public class SearchTest {
         $("#lastName").setValue("Sontyago");
         $("#userEmail").setValue("UsertestX@mail.ru");
         //Gender
-        $("#gender-radio-2").click();
+        $("#genterWrapper").$(byText("Female")).click();
         //Календарь
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("April");
@@ -40,16 +39,19 @@ public class SearchTest {
         //Subject
         $("#subjectsInput").setValue("arts") .pressEnter();
         //Hibbies
-        $("#hobbies-checkbox-3").click();
+        $("#hobbiesWrapper").$(byText("Music")).click();
         //File
         $("#uploadPicture").uploadFile(new File("src/test/resources/google.png"));
         //Address
-        $("#currentAddress").shouldHave(text("Moscow Street 1"));
-        $("#state").setValue("ncr") .pressEnter();
-        $("#city").setValue("noida") .pressEnter();
+        $("#currentAddress").setValue("Moscow Street 1");
+        //State and City
+        $("#state").click();
+        $("#stateCity-wrapper").$(byText("Haryana")).click();
+        $("#city").click();
+        $("#stateCity-wrapper").$(byText("Karnal")).click();
         $("#submit").click();
 
-// Проверки
+// Проверяем
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Sensey Sontyago"));
         $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("UsertestX@mail.ru"));
         $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Female"));
@@ -58,7 +60,7 @@ public class SearchTest {
         $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("arts"));
         $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Music"));
         $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("google.png"));
-        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Tг.Москва ул.Новая дом 1"));
-        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Noida"));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Moscow Street 1"));
+        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("Haryana Karnal"));
     }
 }
